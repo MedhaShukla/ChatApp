@@ -3,7 +3,7 @@ package com.chatapp;
 import android.app.Application;
 import com.facebook.react.ReactApplication;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
-import com.RNFetchBlob.RNFetchBlobPackage;
+//import com.RNFetchBlob.RNFetchBlobPackage;
 import ca.bigdata.voice.contacts.BDVSimpleContactsPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
@@ -12,11 +12,15 @@ import io.invertase.firebase.RNFirebasePackage;
 import com.rt2zz.reactnativecontacts.ReactNativeContacts;
 import fr.bamlab.rnimageresizer.ImageResizerPackage;
 import com.imagepicker.ImagePickerPackage;
+import io.invertase.firebase.storage.RNFirebaseStoragePackage;
 import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
+import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.facebook.react.BuildConfig;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,7 +46,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new SplashScreenReactPackage(),
-            new RNFetchBlobPackage(),
+//            new RNFetchBlobPackage(),
             new BDVSimpleContactsPackage(),
             new FIRMessagingPackage(),
             new ReactNativePushNotificationPackage(),
@@ -55,7 +59,8 @@ public class MainApplication extends Application implements ReactApplication {
               new RNFirebaseStoragePackage(),
               new RNFirebaseAuthPackage(),
               new RNFirebaseMessagingPackage(),
-              new RNFirebaseCrashlyticsPackage()
+              new RNFirebaseCrashlyticsPackage(),
+              new RNFirebaseNotificationsPackage()
       );
 
 

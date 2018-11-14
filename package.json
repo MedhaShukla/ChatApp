@@ -26,6 +26,7 @@
     "react-native-scrollable-tab-view": "^0.8.0",
     "react-native-simple-contacts": "^1.0.2",
     "react-native-splash-screen": "^3.0.6",
+    "react-native-voximplant": "^1.2.0",
     "react-timestamp": "^4.4.0"
   },
   "devDependencies": {

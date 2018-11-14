@@ -22,6 +22,12 @@ const options = {
 
 }
 
+// const Blob = RNFetchBlob.polyfill.Blob
+// const fs = RNFetchBlob.fs
+// window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
+// window.Blob = Blob
+        
+
 export default class Profile extends Component {
     constructor(props) {
         super(props);
@@ -34,16 +40,16 @@ export default class Profile extends Component {
         console.log('recieverName', this.props.contacts)
     }
 
-    pickImage = () => {
+    
+    getImages=()=>{
         const { uri } = this.state;
-        // const Blob = RNFetchBlob.polyfill.Blob
-        // const fs = RNFetchBlob.fs
-        // window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
-        // window.Blob = Blob
-        const user = firebase.auth().currentUser;
-        const uid = user._user.uid;
+    const user = firebase.auth().currentUser;
+    const uid = user._user.uid;
         ImagePicker.showImagePicker(options, (response) => {
-            console.log('Response=', response, response.uri);
+            console.log('Response=', response);
+            Object.keys(response).map((item)=>{
+                console.log('item', item.uri)
+            })
             if(response.didCancel){
                 console.log('User canceled ')
             }else if(response.error) {
@@ -51,55 +57,18 @@ export default class Profile extends Component {
             }
             else{
                 const source = { uri: 'data:image/jpeg;base64,' + response.data}
-                this.setState({ avatarSource: source})
-                // const imagePath = image.path;
-                // const imageRef = firebase.storage().ref(uid).child("avatarSource.jpg")
-                // let mime = 'image/jpg'
-                // fs.readFile(imagePath, 'base64').then((data)=>{
-                //     return Blob.build(data, { type: {mime}+';BASE64'})
-                // }).then((blob)=>{
-                //     uploadBlob =  blob
-                //     return imageRef.put(blob, { contentType: mime})
-                // }).then(()=>{
-                //     uploadBlob.close();
-                //     return imageRef.getDownloadURL()
-                // }).error((err)=>{
-                //     console.log('err', err)
-                // }).error((error)=>{
-                //     console.log('error', error)
-                // })
-
-
-            // if(response.didCancel){
-            //     console.log('User canceled ')
-            // }else if(response.error) {
-            //     console.log('ImagePicker', response.error)
-            // }
-            // else{
-            //     const source = { uri: 'data:image/jpeg;base64,' + response.data}
-            //     this.setState({ avatarSource: source})
-
-            //     var ref = firebase.database().ref('/user');
-            //     var firebaseStorageRef = firebase.storage().ref;
-            //     var pathReference = storage.ref('images/profile.jpg'); 
-
-
-            //     pathReference.getDownloadURL().then(function (url){
-            //         console.log(url);
-            //         ref.push().set({
-            //              uri : url  
-            //          }).then((uri)=>{
-            //             console.log('imageurl', uri)
-            //          })
-
-            //      })
-
-        }
+                this.setState({ avatarSource: source, uri: response.uri})
+                firebase.storage().ref(uid).putFile(uri).on('state_changed', (snapshot)=>{
+                    console.log(snapshot);
+                },err => {
+                console.error(err);
+                }),
+                (uploadFile)=>{
+                console.log(uploadedFile);
+                }
+            }
         })
-}
-
-
-
+    }
 onPress = () => {
     const { name, uri } = this.state;
     if (!name) {
@@ -141,7 +110,7 @@ render() {
             </CustomView>
 
             <CustomView style={{ flexDirection: 'row', paddingTop: 20 }}>
-                <CustomTouchableOpacity onPress={() => this.pickImage()}>
+                <CustomTouchableOpacity onPress={() => this.getImages()}>
                     <CustomView style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: COLORS.FADE, margin: 10, marginBottom: 40, alignItems: 'center', justifyContent: 'center' }}>
 
                         <CustomImage source={this.state.avatarSource} style={{ width: 60, height: 60, borderRadius: 30, resizeMode: 'cover' }} />

@@ -57,7 +57,7 @@ export default class ChatRoom extends Component {
     async checkPermission() {
         const enabled = await firebase.messaging().hasPermission();
         if (enabled) {
-            console.log('enabled', this.getToken())
+            // console.log('enabled', this.getToken())
             this.getToken();
         } else {
             this.requestPermission();
@@ -69,7 +69,7 @@ export default class ChatRoom extends Component {
             await firebase.messaging().requestPermission();
             this.getToken();
         } catch{
-            console.log('permission rejected');
+            // console.log('permission rejected');
         }
     }
 
@@ -126,15 +126,16 @@ export default class ChatRoom extends Component {
 
         firebase.database().ref('/chatroom').child('Entry-' + user._user.uid + '-' + (name || recieverName)).child('/conversation').once('value')
             .then((snapshot) => {
-                console.log('existss', snapshot)
+                // console.log('existss', snapshot)
                 if (snapshot.exists()) {
                     var val = snapshot.val();
-                    console.log('exists', val)
+                    // console.log('exists', val)
                     Object.values(val).map((item) => {
-                        console.log('item', '+', message, '+', time, '=', item.text, '=', item.timeStamp)
+                        // console.log('item', '+', message, '+', time, '=', item.text, '=', item.timeStamp)
                         let arr = message;
                         arr.push(item.text)
                         this.setState({ message: arr })
+                        // console.log(message[0], message, 'message')
                         let array = time;
                         array.push(time)
                         this.setState({ time: array })
@@ -152,15 +153,15 @@ export default class ChatRoom extends Component {
         let arr = message;
         arr = arr.concat(text);
         this.setState({ message: arr.reverse(), text: '' });
-        console.log('med', this.state.message)
+        // console.log('med', this.state.message)
         if (!firebase.apps.length) {
             firebase.initializeApp(CONFIG);
-            console.log('config', CONFIG)
+            // console.log('config', CONFIG)
         }
 
         // create a new user
         const user = firebase.auth().currentUser;
-        console.log('user', user);
+        // console.log('user', user);
         firebase.database().ref('/chatroom').child('Entry-' + user._user.uid + '-' + (name || recieverName)).child('/conversation')
             .push({
 
@@ -169,12 +170,17 @@ export default class ChatRoom extends Component {
                 text,
                 timeStamp: moment().format("DD/MM/YYYY, HH:mm")
 
-            })
+            }).then(() => {
+                firebase.database().ref("newChat").child(user._user.uid).child(name || recieverName).set({
+                    text,
+                    timeStamp: moment().format("DD/MM/YYYY, HH:mm")
+                })
+            }).catch(err => console.log("cannot set data to newChat"));
     }
 
     render() {
         const { contacts, name, lastText,lastTime,recieverName } = this.state;
-        console.log(contacts, 'show contacts');
+        // console.log(contacts, 'show contacts');
         return (
             <CustomView style={{ flex: 1 }}>
                 <CustomView style={{ height: 70, paddingTop: 20, backgroundColor: COLORS.PRIMARY, flexDirection: 'row' }}>

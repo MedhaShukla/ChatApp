@@ -41,7 +41,7 @@ export default class PushNotification extends Component {
             await firebase.messaging().requestPermission();
             this.getToken();
         } catch{
-            console.log('permission rejected');
+            // console.log('permission rejected');
         }
     }
 

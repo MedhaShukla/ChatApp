@@ -16,7 +16,7 @@ export default class Status extends Component {
         return (
             <CustomView style={{ flex: 1, backgroundColor: COLORS.WHITE_BACKGROUND }}>
 
-                <CustomView style={{ zIndex: 5, top: 60, positon: 'absolute', left: 50 }}>
+                <CustomView style={{ zIndex: 5, top: 70, positon: 'absolute', left: 60 }}>
                     <CustomView style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: COLORS.BUTTON, width: 15, height: 15, borderRadius: 7 }}>
                         <CustomText style={{ color: COLORS.WHITE_BACKGROUND, fontWeight: 'bold' }}>+</CustomText>
                     </CustomView>
@@ -36,7 +36,7 @@ export default class Status extends Component {
                 </CustomTouchableOpacity>
                 <CustomView style={{ borderBottomWidth: .7, borderBottomColor: COLORS.FADE }}></CustomView>
 
-                <CustomView style={{ zIndex: 10, top: 250, alignItems: 'flex-end', marginRight: 30 }}>
+                <CustomView style={{ zIndex: 10, top: 270, alignItems: 'flex-end', marginRight: 30 }}>
                     <CustomTouchableOpacity>
                         <CustomView style={{ width: 50, height: 50, borderRadius: 25, backgroundColor: '#E0F2F1', alignItems: 'center', justifyContent: 'center' }}>
                             <CustomImage source={EditImage()} style={{ width: 22, height: 22, resizeMode: 'contain', }} />

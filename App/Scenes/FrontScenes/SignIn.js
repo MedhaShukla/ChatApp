@@ -54,19 +54,19 @@ export default class SignIn extends Component {
 
         if (!firebase.apps.length) {
             firebase.initializeApp(CONFIG);
-            console.log('config', CONFIG)
+            // console.log('config', CONFIG)
         }
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then((data) => {
-                console.log('data', data);
+                // console.log('data', data);
                 this.setState({ spinner: true });
                 setTimeout(() => {
-                    console.log('hfyshjfbsdm');
+                    // console.log('hfyshjfbsdm');
                     this.nextScene();
                 }, 100);
             }).catch((error) => {
                 
-                console.log('error', error);
+                // console.log('error', error);
                 alert('please sign up with your details!')
             })
 
@@ -74,7 +74,7 @@ export default class SignIn extends Component {
     }
 
     nextScene = () => {
-        console.log('hiieee')
+        // console.log('hiieee')
         this.setState({ spinner: false })
         Actions.SCROLLABLE_TAB();
     }

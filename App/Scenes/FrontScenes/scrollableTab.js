@@ -24,8 +24,11 @@ export default class ScrollableTab extends Component {
       data: ['New group', 'New broadcast', 'WhatsApp Web', 'Starred messages', 'Setting'],
       name: props.name,
       contacts: props.contacts,
+      lastText:props.lastText,
+      lastTime: props.lastTime
     }
-    console.log('bjcew', this.state.contacts, this.state.name)
+    console.log(this.props);
+    console.log('bjcew', this.state.contacts, this.state.name, this.state.lastText)
   }
 
   componentWillMount() {
@@ -67,15 +70,13 @@ export default class ScrollableTab extends Component {
           tabBarUnderlineStyle={{ backgroundColor: COLORS.WHITE_BACKGROUND, }}
           renderTabBar={() => <ScrollableTabBar style={{ backgroundColor: COLORS.PRIMARY }} />}
           ref={(tabView) => { this.tabView = tabView; }}>
-          {/* <Camera tabLabel={() => <CustomImage source={CameraImage()} style={{ width: 10, height: 10, resizeMode: 'contain' }} />} /> */}
-          <CameraScene tabLabel='          ' />
-          {/* <CustomImage tabLabel='      ' source={CameraImage()} style={{ width: 10, height: 10, resizeMode: 'contain' }} /> */}
-          <Chats tabLabel='CHATS' contacts={this.state.contacts} />
+          <CameraScene tabLabel='           ' />
+          <Chats tabLabel='CHATS' contacts={this.state.contacts} lastText={this.state.lastText} lastTime={this.state.lastTime} />
           <Status tabLabel='STATUS' />
           <Calls tabLabel='CALLS' />
         </ScrollableTabView>
 
-        <View pointerEvents="none" style={{ position: 'absolute', pointerEvents: 'none', top: 67, left: 20, width: 20, height: 20, resizeMode: 'contain' }}>
+        <View pointerEvents="none" style={{ position: 'absolute', pointerEvents: 'none', top:70, left: 30, width: 20, height: 20, resizeMode: 'contain' }}>
 
           <CustomImage pointerEvents="none" source={CameraImage()} style={{ width: 20, height: 20, resizeMode: 'contain' }} />
         </View>
@@ -86,7 +87,6 @@ export default class ScrollableTab extends Component {
           <TouchableWithoutFeedback onPress={() => this.setState({ isModalVisible: false })}>
             <Modal transparent={false} isVisible={this.state.isModalVisible} onRequestClose={() => this.setState({ isModalVisible: false })}
               style={{ backgroundColor: 'rgba(52, 52, 52, .8)' }}>
-              {/* <CustomView style={{ flex: 1, Opacity: 'rgba(52, 52, 52, 0.8)',zIndex: 10, top: 1, position: 'absolute', }}> */}
               <CustomView style={{ width: 170, height: 210, borderWidth: 2, borderColor: COLORS.FADE, zIndex: 10, top: 1, position: 'absolute', backgroundColor: COLORS.WHITE_BACKGROUND, marginTop: 5, marginRight: 5, borderRadius: 10, marginLeft: 185 }}>
                 {data.map((item) =>
                   <CustomView style={{ paddingLeft: 10, margin: 10 }}>
@@ -96,7 +96,7 @@ export default class ScrollableTab extends Component {
                   </CustomView>
                 )}
               </CustomView>
-              {/* </CustomView> */}
+             
             </Modal>
           </TouchableWithoutFeedback>
           : null}
